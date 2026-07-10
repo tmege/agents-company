@@ -115,8 +115,6 @@
 | `docs-writer` | sonnet | README, API docs, inline comments, changelogs, user documentation. |
 | `performance-optimizer` | opus | Audits & fixes performance bottlenecks; slow apps and pre-release audits. |
 
-> **Not part of the company:** `cbased-teacher` (opus) — a personal C/C++ Socratic tutor. Explicitly *"usage personnel, hors compagnie."* Excluded from headcount.
-
 ---
 
 ## 🧩 Teams in Detail
