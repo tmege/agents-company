@@ -1,4 +1,4 @@
-# 🏢 The AI Agent Company
+# 🏢 The AI Agents Company
 
 > A profit-driven, AI-powered product organization. From market opportunity to shipped, revenue-generating product — orchestrated end-to-end by specialized AI agents.
 
