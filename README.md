@@ -4,7 +4,7 @@
 
 **Mission:** Build products that generate money. Every agent, every task, every decision traces back to revenue.
 
-- **Total headcount:** 27 company agents (+1 personal tutor, outside the company)
+- **Total headcount:** 27 company agents
 - **Source of truth:** `~/.claude/agents/*.md`
 - **Chain of command:** President → CEO → Managers → Teams
 
