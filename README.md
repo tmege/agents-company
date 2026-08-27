@@ -1,8 +1,8 @@
 # 🏢 The AI Agents Company
 
-> A profit-driven, AI-powered product organization. From market opportunity to shipped, revenue-generating product — orchestrated end-to-end by specialized AI agents.
+> AI-powered product organization. From market opportunity to shipped, revenue-generating product — orchestrated end-to-end by specialized AI agents.
 
-**Mission:** Build products that generate money. Every agent, every task, every decision traces back to revenue.
+**Mission:** Build products. Every agent, every task, every decision traces back to revenue.
 
 - **Total headcount:** 27 company agents
 - **Source of truth:** `~/.claude/agents/*.md`
