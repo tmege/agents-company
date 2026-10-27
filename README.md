@@ -4,7 +4,7 @@
 
 **Mission:** Build products. Every agent, every task, every decision traces back to revenue.
 
-- **Total headcount:** 27 company agents
+- **Total headcount:** 33 company agents
 - **Source of truth:** `~/.claude/agents/*.md`
 - **Chain of command:** President → CEO → Managers → Teams
 
@@ -51,6 +51,13 @@
     │          │       │   docs-writer
     │    customer      │   performance-
     │    success       │    optimizer
+
+                 + CEO ──► artisan-lead  (Artisan Branch — French artisan micro-businesses)
+                              ├ artisan-ux-designer
+                              ├ artisan-web-dev
+                              ├ artisan-ecommerce-expert
+                              ├ artisan-seo-specialist
+                              └ artisan-sales-admin
 ```
 
 ---
@@ -115,6 +122,19 @@
 | `docs-writer` | sonnet | README, API docs, inline comments, changelogs, user documentation. |
 | `performance-optimizer` | opus | Audits & fixes performance bottlenecks; slow apps and pre-release audits. |
 
+### Artisan Branch (6 agents, incl. artisan-lead)
+
+Dedicated to French artisan micro-businesses (micro-entreprise, e.g. **Atelier Mo**). Prompts are written in French. Reuses `legal-advisor`, `finance`, `data-analyst`, `copywriter`, `security-auditor`, `code-reviewer`, `qa-engineer` instead of duplicating them.
+
+| Agent | Model | Role |
+|-------|-------|------|
+| `artisan-lead` | opus | Branch orchestrator. First agent for any artisan site / shop / SEO / sales-admin request. |
+| `artisan-ux-designer` | sonnet | UX/UI for handmade brands: product pages, customisation flows, trust, French legal UI constraints. |
+| `artisan-web-dev` | sonnet | Full-stack dev in the project's stack (Atelier Mo: Next.js + Prisma + next-intl). |
+| `artisan-ecommerce-expert` | sonnet | Catalogue, personalisation, capacity/lead times, payment, shipping, returns, marketplaces, conversion. |
+| `artisan-seo-specialist` | sonnet | Keywords, technical SEO (Next.js), JSON-LD, local SEO / Google Business Profile, Pinterest/Images. |
+| `artisan-sales-admin` | sonnet | Quotes, invoices & credit notes, order tracking, receipts book, URSSAF declarations, threshold alerts. |
+
 ---
 
 ## 🧩 Teams in Detail
@@ -125,13 +145,16 @@
 ### Business Team (9) — led by `business-manager`
 `opportunity-scout` · `demand-analyst` · `competitive-analyst` · `feasibility-analyst` · `pricing-strategist` · `marketing` · `copywriter` · `growth-hacker` · `customer-success` · **`business-manager`**
 
+### Artisan Branch (6) — led by `artisan-lead`
+`artisan-ux-designer` · `artisan-web-dev` · `artisan-ecommerce-expert` · `artisan-seo-specialist` · `artisan-sales-admin` · **`artisan-lead`**
+
 ### Cross-Functional (3) — report directly to CEO
 `data-analyst` · `legal-advisor` · `finance`
 
 ### Leadership (1)
 `ceo`
 
-**Headcount math:** 1 CEO + 2 managers + 3 cross-functional + 9 business (incl. mgr) + 13 dev (incl. mgr) — *managers counted once within their team* = **27 agents**.
+**Headcount math:** 1 CEO + 3 cross-functional + 9 business (incl. mgr) + 13 dev (incl. mgr) + 6 artisan branch (incl. lead) = **33 agents**.
 
 ---
 
@@ -177,6 +200,7 @@
 - **To `data-analyst`:** KPI reports, analytics architecture, experiment analysis (both teams).
 - **To `legal-advisor`:** legal docs, compliance audits, risk assessments — **mandatory before any launch.**
 - **To `finance`:** P&L, financial models, budget approval — **mandatory before committing significant spend.**
+- **To `artisan-lead`:** everything about French artisan micro-businesses (site, e-commerce, SEO, invoicing, sales admin); large technical overhauls escalate to `manager`.
 - **Between managers:** clean handoffs — `business-manager` defines *what & why*, `manager` handles *how*.
 - **Direct access:** the CEO may invoke any individual agent directly for urgency — used sparingly.
 
@@ -210,7 +234,7 @@ effort: high                      # optional; only security-auditor sets it
 
 ### The delegation graph — who can *invoke* whom
 
-Delegation is a **capability**, granted by the `Agent` tool. **Only 3 agents have it**, which makes the org a strict **hub-and-spoke tree** (no mesh, no recursion, no runaway spawns):
+Delegation is a **capability**, granted by the `Agent` tool. **Only 4 agents have it**, which makes the org a strict **hub-and-spoke tree** (no mesh, no recursion, no runaway spawns):
 
 ```
 President
@@ -224,10 +248,14 @@ President
    │                          backend-dev, frontend-dev, devops, qa-engineer,
    │                          security-auditor, code-reviewer, docs-writer,
    │                          performance-optimizer
+   ├──► artisan-lead ──────► artisan-ux-designer, artisan-web-dev, artisan-ecommerce-expert,
+   │                          artisan-seo-specialist, artisan-sales-admin
+   │                          (+ requests legal-advisor, finance, data-analyst, copywriter,
+   │                           security-auditor, code-reviewer, qa-engineer)
    └──► data-analyst · legal-advisor · finance   (cross-functional, direct reports)
 ```
 
-- **The 24 non-orchestrator agents are leaf executors** — they do the work and return results. They cannot spawn other agents.
+- **The 29 non-orchestrator agents are leaf executors** — they do the work and return results. They cannot spawn other agents.
 - Agents **do not share memory.** The invoking orchestrator must pass all needed context (file paths, prior specs, constraints) on every call.
 - This design prevents infinite delegation loops and keeps a single, auditable chain of command.
 
@@ -311,10 +339,10 @@ Key cross-links: `marketing → copywriter` (strongest tie) · `pricing-strategi
 
 | Model | Count | Agents |
 |-------|-------|--------|
-| **opus** | 13 | ceo, business-manager, manager, legal-advisor, opportunity-scout, demand-analyst, competitive-analyst, feasibility-analyst, pricing-strategist, architect, security-auditor*, code-reviewer, performance-optimizer |
-| **sonnet** | 14 | data-analyst, finance, marketing, copywriter, growth-hacker, customer-success, product-manager, designer, db-engineer, backend-dev, frontend-dev, devops, qa-engineer, docs-writer |
+| **opus** | 14 | ceo, business-manager, manager, artisan-lead, legal-advisor, opportunity-scout, demand-analyst, competitive-analyst, feasibility-analyst, pricing-strategist, architect, security-auditor*, code-reviewer, performance-optimizer |
+| **sonnet** | 19 | artisan-ux-designer, artisan-web-dev, artisan-ecommerce-expert, artisan-seo-specialist, artisan-sales-admin, data-analyst, finance, marketing, copywriter, growth-hacker, customer-success, product-manager, designer, db-engineer, backend-dev, frontend-dev, devops, qa-engineer, docs-writer |
 
-<sub>*`security-auditor` runs opus with `effort: high`. Total: 13 opus + 14 sonnet = 27 agents.</sub>
+<sub>*`security-auditor` runs opus with `effort: high`. Total: 14 opus + 19 sonnet = 33 agents.</sub>
 
 ### Tool access by agent
 
@@ -347,6 +375,12 @@ Key cross-links: `marketing → copywriter` (strongest tie) · `pricing-strategi
 | `code-reviewer` | Read, Grep, Glob |
 | `docs-writer` | Read, Write, Edit, Glob, Grep, WebFetch |
 | `performance-optimizer` | Read, Grep, Glob, Bash |
+| `artisan-lead` | Read, Write, Edit, Bash, Glob, Grep, WebFetch, WebSearch, Agent |
+| `artisan-ux-designer` | Read, Write, Edit, Glob, Grep, WebFetch, WebSearch |
+| `artisan-web-dev` | Read, Write, Edit, Bash, Glob, Grep |
+| `artisan-ecommerce-expert` | Read, Write, Edit, Glob, Grep, WebFetch, WebSearch |
+| `artisan-seo-specialist` | Read, Write, Edit, Bash, Glob, Grep, WebFetch, WebSearch |
+| `artisan-sales-admin` | Read, Write, Edit, Bash, Glob, Grep, WebFetch, WebSearch |
 
 ---
 
@@ -355,7 +389,7 @@ Key cross-links: `marketing → copywriter` (strongest tie) · `pricing-strategi
 ```
 agents-company/
 ├── README.md          # this document — the full company reference
-└── agents/            # snapshot of the 27 company agent definitions
+└── agents/            # snapshot of the 33 company agent definitions
     ├── ceo.md
     ├── manager.md
     ├── business-manager.md
